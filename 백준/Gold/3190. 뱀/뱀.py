@@ -10,23 +10,22 @@ rotations = []                      # L: 왼쪽, D: 오른쪽
 for _ in range(num_of_rotation):
     rotations.append(list(input().split()))
 
+
 snake = [[1, 1]]
 head = snake[0]
+
 directions = ['RIGHT', 'DOWN', 'LEFT', 'UP']
+dx = [0, 1, 0, -1]
+dy = [1, 0, -1, 0]
 direction = 0
+
 time = 0
 check_time = 0
 while True:
     # 1. 매 초동안 뱀(snake)이 가지고 있는 방향(direction)으로 직진한다.
-    if directions[direction] == 'UP':
-        next_pos = [head[0] - 1, head[1]]
-    elif directions[direction] == 'DOWN':
-        next_pos = [head[0] + 1, head[1]]
-    elif directions[direction] == 'LEFT':
-        next_pos = [head[0], head[1] - 1]
-    else:
-        next_pos = [head[0], head[1] + 1]
+    next_pos = [head[0] + dx[direction], head[1] + dy[direction]]
     time += 1
+
     # 2-1. 다음 뱀의 머리가 향할 위치(next_pos)가 벽이 아니고, 몸과 부딪히지도 않는다면
     # 뱀 리스트(snake)의 제일 앞에 next_pos의 좌표값을 삽입하고, 뱀의 머리(head) 좌표값을 갱신한다.
     if 1 <= next_pos[0] <= len_of_board and 1 <= next_pos[1] <= len_of_board and next_pos not in snake:
@@ -38,7 +37,6 @@ while True:
             snake.pop(-1)
         else:
             apples.remove(next_pos)
-
     # 2-2. 다음 뱀의 머리가 향할 위치(next_pos)가 벽이거나 몸과 부딪힌다면 게임을 종료한다.
     else:
         break
