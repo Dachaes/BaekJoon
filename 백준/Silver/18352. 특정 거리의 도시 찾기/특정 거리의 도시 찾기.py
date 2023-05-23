@@ -28,7 +28,7 @@ while pos_city:
                 res.append(pos)
             # 2-2. 다음 위치(다음 최단 거리)의 도시 리스트 생성한다.
             for city in streets[pos]:
-                if city not in pos_city:
+                if dist_list[city] == -1:
                     temp_city.append(city)
     pos_city.append(temp_city)
     # 3. 다음 최단 거리 확인
