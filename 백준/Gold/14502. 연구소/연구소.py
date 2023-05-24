@@ -1,4 +1,5 @@
 # BOJ_14502 : 연구소
+from collections import deque
 import sys
 from itertools import combinations
 
@@ -14,7 +15,6 @@ cnt_empty = 0
 safety_zone = 0
 dx = [0, 0, -1, 1]
 dy = [-1, 1, 0, 0]
-
 
 # 원본의 연구실을 복제하여 새 연구실 생성하는 함수
 def replicate(origin, num):
@@ -34,7 +34,6 @@ def replicate(origin, num):
         replica.append(temp)
     return replica
 
-
 # 복제한 연구실을 오염시키는 함수
 def contaminate(x, y):
     for k in range(4):
@@ -42,7 +41,6 @@ def contaminate(x, y):
         if (0 <= new_x < n and 0 <= new_y < m) and new_lab[new_x][new_y] == 0:
             new_lab[new_x][new_y] = 2
             contaminate(new_x, new_y)
-
 
 # 원본의 연구실에서 빈 공간(0)의 위치를 empty_space 리스트에 저장한다.
 for i in range(n):
@@ -56,15 +54,19 @@ num_comb = len(possible_comb)
 
 # 모든 경우의 수를 체크한다. (num_comb가 0일 때까지)
 cnt = 0
-while num_comb != 0:
+while num_comb != cnt:
+    # 1. 기존 연구실을 새 연구실에 복사한다.
+    # while 문을 돌며 매번 복사할 때, 새 벽 3개를 세우는 작업도 함께 한다.
     new_lab = replicate(lab, cnt)
     new_safety_zone = 0
 
+    # 2. 새로 만든 연구실의 오염을 진행시킨다.
     for i in range(n):
         for j in range(m):
             if new_lab[i][j] == 2:
                 contaminate(i, j)
 
+    # 3. 오염이 끝난 후에 안전한 공간(0)을 확인한다.
     for i in range(n):
         for j in range(m):
             if new_lab[i][j] == 0:
@@ -72,5 +74,4 @@ while num_comb != 0:
 
     safety_zone = max(safety_zone, new_safety_zone)
     cnt += 1
-    num_comb -= 1
 print(safety_zone)
