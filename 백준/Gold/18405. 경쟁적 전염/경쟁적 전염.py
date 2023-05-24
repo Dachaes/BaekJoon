@@ -30,6 +30,8 @@ def contaminate(x, y, virus):
             next_positions.append([new_x, new_y])
 
 while s != 0:
+    if not deq_tube:
+        break
     for i in range(len(deq_tube)):
         positions_of_virus = deq_tube.popleft()
         next_positions = []
