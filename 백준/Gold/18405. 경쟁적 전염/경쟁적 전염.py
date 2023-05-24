@@ -15,13 +15,14 @@ for i in range(n):
     test_tube.append(data)
 deq_tube = deque(list_tube)                 # deq_tube : list_tube를 deque화
 
-s, x, y = map(int, sys.stdin.readline().split())
-x, y = x - 1, y - 1
+s, target_x, target_y = map(int, sys.stdin.readline().split())
+target_x, target_y = target_x - 1, target_y - 1
 
 dx = [0, 0, -1, 1]
 dy = [-1, 1, 0, 0]
 
-# 시험관을 오염시키는 함수
+
+# 시험관을 전염시키는 함수
 def contaminate(x, y, virus):
     for i in range(4):
         new_x, new_y = x + dx[i], y + dy[i]
@@ -29,9 +30,16 @@ def contaminate(x, y, virus):
             test_tube[new_x][new_y] = virus
             next_positions.append([new_x, new_y])
 
+
+# 시간 s가 지나면 while 문을 더 이상 실행하지 않는다.
 while s != 0:
+    # 더 이상 전염시킬 수 없으면 while 문을 빠져 나온다.
     if not deq_tube:
         break
+    # 이미 타겟 위치에 바이러스가 존재한다면 while 문을 빠져 나온다.
+    if test_tube[target_x][target_y] != 0:
+        break
+    # 가지고 있는 바이러스 정보만큼 for 문을 돈다. (1 for 문 = 1초)
     for i in range(len(deq_tube)):
         positions_of_virus = deq_tube.popleft()
         next_positions = []
@@ -40,4 +48,4 @@ while s != 0:
         deq_tube.append(next_positions)
     s -= 1
 
-print(test_tube[x][y])
+print(test_tube[target_x][target_y])
