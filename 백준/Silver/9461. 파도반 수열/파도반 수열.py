@@ -10,16 +10,11 @@ for _ in range(num_tests):
 def seq(num):
     global sequence
     if sequence[num] == -1:
-        if 1 <= num < 4:
-            sequence[num] = 1
-        elif 4 <= num < 6:
-            sequence[num] = 2
-        else:
-            sequence[num] = seq(num - 1) + seq(num - 5)
+        sequence[num] = seq(num - 1) + seq(num - 5)
 
     return sequence[num]
 
 
-sequence = [-1] * 101
+sequence = [0, 1, 1, 1, 2, 2] + ([-1] * 95)
 for n in n_list:
     print(seq(n))
