@@ -14,8 +14,6 @@ def seq(num):
             sequence[num] = 1
         elif 4 <= num < 6:
             sequence[num] = 2
-        elif 6 <= num < 9:
-            sequence[num] = seq(num - 1) + seq(1)
         else:
             sequence[num] = seq(num - 1) + seq(num - 5)
 
