@@ -24,5 +24,7 @@ for _ in range(len_str):
         if string[i] != sorted_string[i]:
             cnt += 1
     min_exchange = min(min_exchange, cnt // 2)
+    if min_exchange == 0:
+        break
 
 print(min_exchange)
