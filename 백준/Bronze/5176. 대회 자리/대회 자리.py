@@ -1,6 +1,5 @@
 # BOJ_5176 : 대회 자리
 import sys
-INF = int(1e9)
 
 n_cases = int(sys.stdin.readline())
 
