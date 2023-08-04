@@ -6,11 +6,9 @@ for t in range(n_tests):
 	checks = [list(map(int, input().split())) for _ in range(n_checks)]
 	boxes = [0] * (n_boxes + 1)
 
-	check_number = 1
-	for check in checks:
+	for check_number, check in enumerate(checks):
 		start, end = check[0], check[1]
 		for idx in range(start, end + 1):
-			boxes[idx] = check_number
-		check_number += 1
+			boxes[idx] = check_number + 1
 
 	print(f"#{t + 1}", *boxes[1:])
