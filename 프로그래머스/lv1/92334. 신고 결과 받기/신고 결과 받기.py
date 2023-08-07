@@ -10,14 +10,15 @@ def solution(id_list, reports, k):
         by_another_user, reported_user = report.split()
         if by_another_user not in reported_users.get(reported_user):
             reported_users[reported_user].append(by_another_user)
-    # print(reported_users)
+    # print(reported_users) -> {'muzi': ['apeach'], 'frodo': ['muzi', 'apeach'], 'apeach': [], 'neo': ['frodo', 'muzi']}
 
-    disallowed_users = []       # disallowed_users: 사이트 이용이 정지된 유저 리스트
+	# disallowed_users: 사이트 이용이 정지된 유저 리스트
+    disallowed_users = []
     # 2. reported_users 를 보고 일정 신고 횟수(k) 이상인 경우 사이트 이용을 정지한다.
     for reported_user, by_another_user in reported_users.items():
         if len(by_another_user) >= k:
             disallowed_users.append(reported_user)
-    # print(disallowed_users)
+    # print(disallowed_users) -> ['frodo', 'neo']
 
     # 3. 이용이 정지된 유저들을 신고한 유저를 확인한다.
     for disallowed_user in disallowed_users:
@@ -26,8 +27,7 @@ def solution(id_list, reports, k):
             if disallowed_user == reported_user:
                 for user in by_another_user:
                     users_to_receive_mail[user] += 1
-    # print(users_to_receive_mail)
-
+    # print(users_to_receive_mail) -> {'muzi': 2, 'frodo': 1, 'apeach': 1, 'neo': 0}
 
     answer = list(users_to_receive_mail.values())
     return answer
