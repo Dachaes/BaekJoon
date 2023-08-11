@@ -10,11 +10,10 @@ for t in range(n_tests):
 	for i in range(N):
 		for j in range(M):
 			# 1. pollen 에 기준 점이 될 풍선의 꽃가루를 저장한다.
-			center_balloon, pollen = arr[i][j], arr[i][j]
+			pollen = arr[i][j]
 			# 2. pollen 의 값만큼 상하좌우의 풍선을 탐색한다.
 			for p in range(4):
-				ni, nj = i, j		# 기준점 위치 저장
-				ni, nj = ni + di[p], nj + dj[p]
+				ni, nj = i + di[p], j + dj[p]
 				if 0 <= ni < N and 0 <= nj < M:
 					pollen += arr[ni][nj]
 				else:
