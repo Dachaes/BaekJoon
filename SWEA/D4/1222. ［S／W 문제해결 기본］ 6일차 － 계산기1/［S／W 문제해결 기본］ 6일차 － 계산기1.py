@@ -4,33 +4,23 @@ icp = {'(': 3, '*': 2, '/': 2, '+': 1, '-': 1}
 
 
 # 중위 표기식을 후위 표기식으로 변환하는 함수
-def convert_postfix_notation(notation):
+def convert_postfix_notation(nota):
     stack, res_notation = [], []
-    for x in notation:
-        # 1. x가 숫자일 때, 바로 후위 표기식(res_notation)으로 출력한다.
+    for x in nota:
         if x not in ['(', '*', '/', '+', '-', ')']:
             res_notation.append(int(x))
-        # 2. x가 ')'일 때, '('가 나올 때까지 stack을 pop한다.
         elif x == ')':
             pre_x = stack.pop()
             while pre_x != '(':
                 res_notation.append(pre_x)
                 pre_x = stack.pop()
-        # 3. x가 숫자도, ')'도 아니면, 우선 순위에 따라서 append, pop을 한다.
         else:
-            # 3-1. stack이 비어있거나, x 가 stack에 있는 값보다 우선순위가 높으면
-            # stack에 저장(append)한다.
-            if not stack or isp[stack[-1]] < icp[x]:
-                stack.append(x)
-            # 3-2. x가 stack에 있는 값이랑 우선순위가 같거나 낮으면
-            # 그 동안 stack에 있는 값을 pop하고, 후위 표기식으로 출력한다.
-            # 마지막에 x를 stack에 저장한다.
-            elif isp[stack[-1]] >= icp[x]:
-                while stack and isp[stack[-1]] >= icp[x]:
-                    pre_x = stack.pop()
-                    res_notation.append(pre_x)
-                stack.append(x)
-    else:
+            while stack and isp[stack[-1]] >= icp[x]:
+                pre_x = stack.pop()
+                res_notation.append(pre_x)
+            stack.append(x)
+
+    if stack:
         pre_x = stack.pop()
         res_notation.append(pre_x)
 
