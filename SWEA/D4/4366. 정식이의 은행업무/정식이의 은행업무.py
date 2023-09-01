@@ -1,5 +1,4 @@
 def convert2_to_10(number, x):
-	result = ''
 	result = number[:x] + str(int(number[x]) ^ 1) + number[x + 1:]
 
 	return int(result, 2)
