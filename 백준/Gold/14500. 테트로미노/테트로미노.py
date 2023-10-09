@@ -26,12 +26,11 @@ for _ in range(n):
     arr.append(list(map(int, sys.stdin.readline().split())))
     used.append([False] * m)
 
-check = [0, 0, 0, 0]
+# dfs depth4 확인
 result = 0
 for i in range(n):
     for j in range(m):
         used[i][j] = True
-        check[0] = arr[i][j]
         dfs(i, j, 1, arr[i][j])
         used[i][j] = False
 
