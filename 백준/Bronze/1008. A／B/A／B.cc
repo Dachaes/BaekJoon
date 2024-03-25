@@ -1,14 +1,13 @@
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
-int main(){
-    cout << fixed;
-    cout.precision(11);
-
-    int a, b;
-    
+int main() {
+    double a, b;
     cin >> a >> b;
-    long double c = double(a) / b;
-    cout << c << endl;
+
+    cout << setprecision(20) << a / b << endl;
+
     return 0;
 }
