@@ -1,46 +1,24 @@
-// BOJ_2445 : 별 찍기 8
 #include <iostream>
 using namespace std;
 
-int i, j, Star, Space, N, N_MAX;
-void Print_star8();
-
 int main() {
-    ios::sync_with_stdio(false); cin.tie(0);
-    cin >> N;
-    N_MAX = 2*N - 1;
-    Star = 1;
-    Space = N_MAX - 1;
-    Print_star8();
-    return 0;
-}
+    int n;
+    cin >> n;
 
-void Print_star8(){
-    for(i = 0; i < N_MAX; i++){
-        if(i >= 0 && i < N-1){
-            for(j = 0; j < Star; j++)
-                cout << "*";
-            for(j = 0; j < Space; j++)
-                cout << " ";
-            for(j = 0; j < Star; j++)
-                cout << "*";
-            Star++;
-            Space -= 2;
-        }
-        else if(i == N-1){
-             for(j = 0; j <= N_MAX; j++)
-                    cout << "*";
-        }
-        else{
-            Star--;
-            Space += 2;
-            for(j = 0; j < Star; j++)
-                cout << "*";
-            for(j = 0; j < Space; j++)
-                cout << " ";
-            for(j = 0; j < Star; j++)
-                cout << "*";
-        }
-        cout << endl;
+    int max = 2 * n;
+    char star = '*';
+    string padding;
+    string stars;
+    for (int i = 1; i < n + 1; i++) {
+        stars = string(i, star);
+        padding = string((max - 2 * stars.size()), ' ');
+        cout << stars << padding << stars << '\n';
     }
+    for (int i = n - 1; i > 0; i--) {
+        stars = string(i, star);
+        padding = string((max - 2 * stars.size()), ' ');
+        cout << stars << padding << stars << '\n';
+    }
+
+    return 0;
 }
