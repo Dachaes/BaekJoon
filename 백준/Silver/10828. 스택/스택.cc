@@ -1,58 +1,59 @@
-// BOJ_10828 : 스택
 #include <iostream>
-#include <string>
-#include <stack>
-
+#include <vector>
 using namespace std;
-stack<int> s;
-int N, num, s_size;
-string s_commend;
 
-void in1(){
-    ios::sync_with_stdio(false); cin.tie(0);
-    cin >> N;
-}
+int main()
+{
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL); cout.tie(NULL);
+  
+  int n = 0;
+  cin >> n;
+  cin.ignore();
+  vector<int> stack;
 
-void in2(){
-    ios::sync_with_stdio(false); cin.tie(0);
-    cin >> s_commend;
-}
+  for(int i = 0; i < n; i++)
+  {
+    string command;
+    getline(cin, command);
 
-void solve(){
-    if(s_commend == "push"){
-        cin >> num;
-        s.push(num);
-        s_size++;
+    // push 연산
+    if (command.find("push") != string::npos)
+    {
+      int num = stoi(command.substr(5));
+      stack.push_back(num);
     }
-    else if(s_commend == "pop"){
-        if(!s.empty()){
-            cout << s.top() << endl;
-            s.pop();
-            s_size--;
-        }
-        else
-            cout << "-1" << endl;
+    // pop 연산
+    else if (command == "pop")
+    {
+      if (stack.empty())
+        cout << -1 << endl;
+      else
+      {
+        cout << stack.back() << endl;
+        stack.pop_back();
+      }
     }
-    
-    else if(s_commend == "size")
-        cout << s_size << endl;
-
-    else if(s_commend == "empty")
-        cout << s.empty() << endl;
-
-    else if(s_commend == "top"){
-        if(!s.empty())
-            cout << s.top() << endl;
-        else
-            cout << "-1" << endl;
+    // size 연산
+    else if (command == "size")
+      cout << stack.size() << endl;
+    // empty 연산
+    else if (command == "empty")
+    {
+      if (stack.empty())
+        cout << 1 << endl;
+      else
+        cout << 0 << endl;
     }
-}
-
-int main() {
-    in1();
-    for (int i = 0; i < N; i++){
-        in2();
-        solve();
+    // top 연산
+    else if (command == "top")
+    {
+      if (stack.empty())
+        cout << -1 << endl;
+      else
+        cout << stack.back() << endl;
     }
-    return 0;
+  }
+  
+  return 0;
 }
