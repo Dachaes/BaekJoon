@@ -1,42 +1,25 @@
-// BOJ_1436 : 영화감독 숌
 #include <iostream>
-
-// N: 입력, title: 출력(영화 제목)
-// cnt: 임시 title값이 몇 번째 영화 제목인가.
-// flag: loof 종료 기점
 using namespace std;
-int N, title;
-string title_;
 
-void in(){
-    ios::sync_with_stdio(false); cin.tie(0);
-    cin >> N;
-}
-
-void solve(){
-    int cnt = 0;
-    int flag = 1;
-    title = 665;
-    while(flag){
-        title++;
-        title_ = to_string(title);
-        for(int i = 2; i < title_.length(); i++){            
-            if(title_[i - 2] == '6' && title_[i - 1] == '6' && title_[i] == '6'){
-                cnt++;
-                break;
-            }
-        }
-        if(cnt == N)    flag = 0;
-    }
-}
-
-void out(){
-    cout << title << endl;
-}
 
 int main() {
-    in();
-    solve();
-    out();
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+
+    int n = 0;
+    cin >> n;
+
+    int num = 666, cnt = 0;
+    string str_num;
+
+    while (cnt != n) {
+        str_num = to_string(num);
+        num = stoi(str_num);
+        if (str_num.find("666") != string::npos)
+            cnt += 1;
+        num++;
+    }
+
+    cout << str_num << endl;
     return 0;
 }
