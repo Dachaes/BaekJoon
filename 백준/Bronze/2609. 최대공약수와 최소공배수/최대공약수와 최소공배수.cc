@@ -1,51 +1,41 @@
-// BOJ_2609 : 최대공약수와 최소공배수
 #include <iostream>
 using namespace std;
-int A, B;
-int A_, B_, LCM;
-int Anum = 1; int Bnum = 1;
-int A__, B__, GCD;
-void in(){
-    ios::sync_with_stdio(false); cin.tie(0);
-    cin >> A >> B;
-    A_ = A__ = A;     B_ = B__ = B;
-}
 
-void solve_LCM(){
-    while(LCM == 0){
-        if(A_ == B_)
-            LCM = A_;
-        else if (A_ < B_) {
-            A_ = A * Anum;
-            Anum++;
-        }
-        else if (A_ > B_) {
-            B_ = B * Bnum;
-            Bnum++;
-        }
-    }
-}
 
-void solve_GCD(){
-    while(GCD == 0){
-        if(A__ > B__)
-            A__ -= B__;
-        else if(A__ < B__)
-            B__ -= A__;
-        else
-            GCD = A__;
-    }
-}
-
-void out(){
-    cout << GCD << endl;
-    cout << LCM << endl;
-}
+int GCD(int, int);
+int LCM(int, int, int);
 
 int main() {
-    in();
-    solve_LCM();
-    solve_GCD();
-    out();
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+
+    // 입력
+    int num1 = 0, num2 = 0;
+    cin >> num1 >> num2;
+
+    int gcd = num1 >= num2? GCD(num1, num2) : GCD(num2, num1);
+    int lcm = LCM(num1, num2, gcd);
+    cout << gcd << '\n' << lcm << '\n';
+
     return 0;
+}
+
+
+// Greatest Common Divisor (최대 공약수)
+int GCD(int a, int b) {
+    // 계산
+    int r = 0;
+    while (a != 0 and b != 0) {
+        r = a % b;
+        a = b;
+        b = r;
+    }
+
+    return a;
+}
+
+
+// Lowest Common Multiple (최소 공배수)
+int LCM(int a, int b, int gcd) {
+    return (a * b) / gcd;
 }
