@@ -16,48 +16,45 @@ int main() {
         string brackets;
         cin >> brackets;
 
-        // 1. 괄호를 stack 에 정리
-        stack<char> brackets_stack1, brackets_stack2;
+        stack<char> brackets_stack;
+        char pre_bracket;
+        // 1. 괄호를 앞에서부터 하나씩 꺼내어 체크
+        bool isValid = true;
         for (char bracket : brackets) {
-            brackets_stack1.emplace(bracket);
-        }
+            // 2-1. 괄호가 '('일 경우
+            if (bracket == '(')
+                brackets_stack.emplace(bracket);
 
-        // 2. 괄호를 뒤에서부터 하나씩 꺼내어 체크
-        char pre_bracket, bracket;
-
-        while (!brackets_stack1.empty()) {
-            bracket = brackets_stack1.top();
-            brackets_stack1.pop();
-
-            // 2-1. 괄호가 ')'일 경우
-            if (bracket == ')')
-                brackets_stack2.emplace(bracket);
-
-            // 2-2. 괄호가 '(' 일 경우
-            else if (bracket == '('){
-                // 끝이 열린 괄호므로 불가능한 문자열
-                if (brackets_stack2.empty()) {
-                    brackets_stack2.emplace(bracket);
+            // 2-2. 괄호가 ')' 일 경우
+            else {
+                // 짝이 없는 괄호이므로 불가능한 괄호 문자열
+                if (brackets_stack.empty()) {
+                    isValid = false;
                     break;
                 }
+                // 짝이 있으면, '(' 인지 ')' 인지 확인
                 else {
-                    pre_bracket = brackets_stack2.top();
-                    if (pre_bracket == ')') {
-                        brackets_stack2.pop();
-                        pre_bracket = ' ';
+                    pre_bracket = brackets_stack.top();
+                    // '(' 면 지금 괄호인 ')' 과 짝이 맞음 -> pop!
+                    if (pre_bracket == '(') {
+                        brackets_stack.pop();
                     }
-                    else if (pre_bracket == '(') {
-                        brackets_stack2.emplace(bracket);
+                    // ')' 면 지금 괄호인 '(' 과 짝이 안맞음 -> push!
+                    else {
+                        brackets_stack.emplace(bracket);
                     }
                 }
             }
         }
 
-        if (brackets_stack2.empty())
-            cout << "YES" << endl;
+        // 남은 괄호가 있으면 불가능한 괄호 문자열
+        if (!brackets_stack.empty())
+            isValid = false;
+
+        if (isValid)
+            cout << "YES\n";
         else
-            cout << "NO" << endl;
+            cout << "NO\n";
     }
-    
     return 0;
 }
