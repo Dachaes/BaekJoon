@@ -15,7 +15,10 @@ int main() {
     int card = 0;
     for (int i = 0; i < n_cards; ++i) {
         cin >> card;
-        cards[card]++;
+        if (cards.find(card) != cards.end())
+            cards.at(card)++;
+        else
+            cards.emplace(card, 1);
     }
 
     // 입력 - 개수 세기
@@ -25,7 +28,11 @@ int main() {
     int check = 0;
     for (int i = 0; i < n_checks; ++i) {
         cin >> check;
-        cout << cards[check] << ' ';
+
+        if (cards.find(check) != cards.end())
+            cout << cards.at(check) << ' ';
+        else
+            cout << 0 << ' ';
     }
 
     return 0;
