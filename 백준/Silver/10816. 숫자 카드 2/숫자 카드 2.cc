@@ -1,5 +1,5 @@
 #include <iostream>
-#include <map>
+#include <unordered_map>
 using namespace std;
 
 
@@ -11,14 +11,11 @@ int main() {
     int n_cards = 0;
     cin >> n_cards;
 
-    map<int, int> cards;
+    unordered_map<int, int> cards;
     int card = 0;
     for (int i = 0; i < n_cards; ++i) {
         cin >> card;
-        if (cards.find(card) != cards.end())
-            cards.at(card)++;
-        else
-            cards.emplace(card, 1);
+        cards[card]++;
     }
 
     // 입력 - 개수 세기
@@ -28,11 +25,7 @@ int main() {
     int check = 0;
     for (int i = 0; i < n_checks; ++i) {
         cin >> check;
-
-        if (cards.find(check) != cards.end())
-            cout << cards.at(check) << ' ';
-        else
-            cout << 0 << ' ';
+        cout << cards[check] << ' ';
     }
 
     return 0;
