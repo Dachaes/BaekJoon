@@ -8,7 +8,7 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
 
-    // 입력 - 카드 덱
+    // 입력
     int n_commands = 0;
     cin >> n_commands;
     cin.ignore();
