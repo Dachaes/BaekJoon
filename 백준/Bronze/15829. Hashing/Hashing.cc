@@ -13,16 +13,15 @@ int main() {
 
     // 입력 2
     string words;
-    cin.ignore();
-    getline(cin, words);
+    cin >> words;
 
-    long long sum = 0, res = 1;
+    long long r = 1, m = 1234567891, sum = 0, res = 0;
     for (int i = 0; i < n; ++i) {
         char word = words[i];
-        long long r = pow(31, i);
-        sum += (word - 96) * r;
+        sum = (sum + (word - 96) * r) % m;
+        r = r * 31 % m;
     }
-    res = sum % 123456891;
+    res = sum;
 
     cout << res << endl;
     return 0;
