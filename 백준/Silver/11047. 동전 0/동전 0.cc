@@ -19,7 +19,7 @@ int main() {
         cin >> coins[i];
     }
 
-    // 분할정복 (target 과 가까운 동전의 가치 찾기) + 그리디
+    // 이진탐색 (target 과 가까운 동전의 가치 찾기) + 그리디
     int max_index = n_coins - 1, max_coin = 0, num_max_coin = 0, res = 0;
     while (target != 0) {
         max_index = binary_search(coins, 0, max_index, target);
