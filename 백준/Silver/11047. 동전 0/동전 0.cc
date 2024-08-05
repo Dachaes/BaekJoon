@@ -3,7 +3,7 @@
 using namespace std;
 
 
-int divide_conquer(vector<int>, int, int, int);
+int binary_search(vector<int>, int, int, int);
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -22,7 +22,7 @@ int main() {
     // 분할정복 (target 과 가까운 동전의 가치 찾기) + 그리디
     int max_index = n_coins - 1, max_coin = 0, num_max_coin = 0, res = 0;
     while (target != 0) {
-        max_index = divide_conquer(coins, 0, max_index, target);
+        max_index = binary_search(coins, 0, max_index, target);
         max_coin = coins[max_index];
         num_max_coin = target / max_coin;
 
@@ -35,7 +35,7 @@ int main() {
 }
 
 
-int divide_conquer(vector<int> numbers, int start, int end, int target) {
+int binary_search(vector<int> numbers, int start, int end, int target) {
     int mid = 0, res = 0;
 
     while (start <= end) {
