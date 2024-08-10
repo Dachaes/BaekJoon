@@ -10,7 +10,7 @@ int main() {
 
     // 입력
     int n_numbers = 0;         cin >> n_numbers;
-    priority_queue<int, vector<int>, greater<int>> numbers;
+    priority_queue<int, vector<int>, greater<>> numbers;
 
     int number = 0;
     for (int i = 0; i < n_numbers; ++i) {
@@ -30,6 +30,7 @@ int main() {
             numbers.emplace(number);
         }
     }
+
 
     return 0;
 }
