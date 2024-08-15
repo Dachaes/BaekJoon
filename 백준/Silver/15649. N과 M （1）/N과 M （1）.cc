@@ -1,10 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 
-void Permutation(int, int, vector<int>&, vector<bool>&);
+void NM1(int, int, vector<int>&, vector<bool>&);
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -13,22 +12,22 @@ int main() {
 
     // 입력
     int n_numbers = 0;    cin >> n_numbers;
-    int n_perm = 0;       cin >> n_perm;
+    int n_seq = 0;       cin >> n_seq;
 
     // 순열
-    vector<int> permutation;
+    vector<int> nm1;
     vector<bool> used(n_numbers + 1, false);
 
-    Permutation(n_numbers, n_perm, permutation, used);
+    NM1(n_numbers, n_seq, nm1, used);
 
     return 0;
 }
 
 
-void Permutation(int n_numbers, int n_perm, vector<int>& permutation, vector<bool>& used) {
+void NM1(int n_numbers, int n_seq, vector<int>& nm1, vector<bool>& used) {
     // 한 세트의 순열 제작 완료
-    if (permutation.size() == n_perm) {
-        for (int number : permutation) {
+    if (nm1.size() == n_seq) {
+        for (int number : nm1) {
             cout << number << ' ';
         }
         cout << '\n';
@@ -41,9 +40,9 @@ void Permutation(int n_numbers, int n_perm, vector<int>& permutation, vector<boo
             continue;
 
         used[i] = true;
-        permutation.push_back(i);
-        Permutation(n_numbers, n_perm, permutation, used);
-        permutation.pop_back();
+        nm1.push_back(i);
+        NM1(n_numbers, n_seq, nm1, used);
+        nm1.pop_back();
         used[i] = false;
     }
 }
