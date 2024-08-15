@@ -11,11 +11,11 @@ int main() {
 
     // 입력
     int n_numbers = 0;    cin >> n_numbers;
-    int n_perm = 0;       cin >> n_perm;
+    int n_seq = 0;       cin >> n_seq;
 
     // 조합
     vector<bool> checks(n_numbers, false);
-    fill(checks.begin(), checks.begin() + n_perm, true);
+    fill(checks.begin(), checks.begin() + n_seq, true);
 
     do {
         for (int i = 0; i < n_numbers; ++i) {
