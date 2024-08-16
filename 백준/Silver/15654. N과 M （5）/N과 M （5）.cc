@@ -23,7 +23,7 @@ int main() {
     sort(numbers.begin(), numbers.end());
 
     vector<int> nm5;
-    vector<bool> used(n_numbers + 1, false);
+    vector<bool> used(n_numbers, false);
     NM5(n_numbers, n_seq, numbers, nm5, used);
 
     return 0;
