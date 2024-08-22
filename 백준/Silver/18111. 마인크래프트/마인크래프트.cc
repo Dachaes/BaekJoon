@@ -18,7 +18,7 @@ int main() {
     int remains = 0;    cin >> remains;
 
     vector<vector<int>> maps(n, vector<int>(m));
-    int min_blocks = 1e9, max_blocks = -1e9;
+    int min_blocks = INT_MAX, max_blocks = INT_MIN;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
             int blocks;
@@ -50,20 +50,19 @@ int flatten_map(int x, int y, vector<vector<int>>& arr, int target, int remains)
 
     for (int i = 0; i < x; ++i) {
         for (int j = 0; j < y; ++j) {
-            int diff = abs(arr[i][j] - target);
+            int diff = arr[i][j] - target;
+            // 블럭 제거
             if (target < arr[i][j]) {
                 remains += diff;
                 time += (2 * diff);
             }
+            // 블럭 추가
             else if (arr[i][j] < target) {
-                remains -= diff;
-                time += (1 * diff);
+                remains += diff;
+                time -= diff;
             }
         }
     }
 
-    if (remains >= 0)
-        return time;
-    else
-        return -1;
+    return (remains >= 0) ? time : -1;
 }
