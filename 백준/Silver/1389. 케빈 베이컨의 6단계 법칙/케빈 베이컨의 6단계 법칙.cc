@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <unordered_set>
 #include <algorithm>
 #include <climits>
 using namespace std;
@@ -45,5 +44,6 @@ int main() {
 
     int answer = min_element(kevin_bacon.begin() + 1, kevin_bacon.end()) - kevin_bacon.begin();
     cout << answer << '\n';
+    
     return 0;
 }
