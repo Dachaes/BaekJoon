@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <climits>
+#include <algorithm>
 using namespace std;
 
 
@@ -10,51 +10,47 @@ int main() {
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    int n_vertexes, n_graphs, dist, start;
-    cin >> n_vertexes >> n_graphs >> dist >> start;
+    int n_vertexes, n_graphs, goal_dist, start;
+    cin >> n_vertexes >> n_graphs >> goal_dist >> start;
 
-    vector<vector<pair<int, int>>> graphs(n_vertexes + 1);
+    vector<vector<int>> graphs(n_vertexes + 1);
     for (int i = 0; i < n_graphs; ++i) {
         int a, b;
         cin >> a >> b;
-        graphs[a].emplace_back(1, b);
+        graphs[a].emplace_back(b);
     }
 
-    vector<int> distance(n_vertexes + 1, INT_MAX);
-
-    // dijkstra
+    vector<int> answer;
+    // bfs
     queue<pair<int, int>> q;
     q.emplace(0, start);
-    distance[start] = 0;
+    vector<bool> visited(n_vertexes + 1, false);
+    visited[start] = true;
     while (!q.empty()) {
         int curr_dist = q.front().first;
         int curr_pos = q.front().second;
         q.pop();
 
-        if (distance[curr_pos] < curr_dist)
-            continue;
+        for (int next : graphs[curr_pos]) {
+            if (!visited[next]) {
+                visited[next] = true;
 
-        for (pair<int, int> next : graphs[curr_pos]) {
-            int next_dist = curr_dist + next.first;
-            int next_pos = next.second;
-
-            if (next_dist <= distance[next_pos]) {
-                distance[next_pos] = next_dist;
-                q.emplace(next_dist, next_pos);
+                if (curr_dist + 1 == goal_dist)
+                    answer.emplace_back(next);
+                else
+                    q.emplace(curr_dist + 1, next);
             }
         }
     }
 
     // 출력
-    bool flag_no_answer = true;
-    for (int i = 1; i <= n_vertexes; ++i) {
-        if (distance[i] == dist) {
-            flag_no_answer = false;
-            cout << i << '\n';
-        }
-    }
-    if (flag_no_answer)
+    if (answer.empty())
         cout << -1 << '\n';
+    else {
+        sort(answer.begin(), answer.end());
+        for (int ans : answer)
+            cout << ans << '\n';
+    }
 
     return 0;
 }
