@@ -12,14 +12,10 @@ int main() {
     cout.tie(nullptr);
 
     int n;      cin >> n;
-    vector<string> words(n);
     for (int i = 0; i < n; ++i) {
         string word;        cin >> word;
-        words[i] = word;
-    }
 
-    // two pointers
-    for (string word : words) {
+        // two pointers
         int result = check_palindrome(0, word.length() - 1, word, 0);
         cout << result << endl;
     }
