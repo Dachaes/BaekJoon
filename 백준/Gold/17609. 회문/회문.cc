@@ -1,10 +1,9 @@
 #include <iostream>
-#include <vector>
 #define endl '\n'
 using namespace std;
 
 
-int check_palindrome(int, int, string&, int);
+int check_palindrome(int, int, const string&);
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -16,7 +15,7 @@ int main() {
         string word;        cin >> word;
 
         // two pointers
-        int result = check_palindrome(0, word.length() - 1, word, 0);
+        int result = check_palindrome(0, word.length() - 1, word);
         cout << result << endl;
     }
 
@@ -24,7 +23,7 @@ int main() {
 }
 
 
-int check_palindrome(int left, int right, string &word, int result) {
+int check_palindrome(int left, int right, const string &word) {
     while (left <= right) {
         //  단어가 같으면
         if (word[left] == word[right]) {
