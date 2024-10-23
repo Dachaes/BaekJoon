@@ -1,59 +1,40 @@
 #include <iostream>
+#include <vector>
 // #define endl '\n'
 using namespace std;
 
-struct Node {
-    int value;
-    Node* left;
-    Node* right;
 
-    explicit Node(int v) : value(v), left(nullptr), right(nullptr) {}
-};
-
-// 트리에 새로운 노드를 삽입하는 함수
-Node* insert(Node* root, int value) {
-    if (root == nullptr)
-        return new Node(value);
-
-    if (value < root->value)
-        root->left = insert(root->left, value);
-    else
-        root->right = insert(root->right, value);
-    return root;
-}
-
-// 후위 순회 (post-order traversal) 함수
-void post_order(Node* root) {
-    if (root == nullptr) return;
-    post_order(root->left);
-    post_order(root->right);
-    cout << root->value << endl;
-}
-
-// 트리의 모든 노드를 삭제하는 함수
-void delete_tree(Node* root) {
-    if (root == nullptr) return;
-    delete_tree(root->left);
-    delete_tree(root->right);
-    delete root;
-}
+void post_order(vector<int>&, int, int);
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    Node* root = nullptr;
+    vector<int> pre_order;
     int value;
     while (cin >> value) {
-        root = insert(root, value);
+        pre_order.emplace_back(value);
     }
-    
-    // 후위 순회 출력
-    post_order(root);
 
-    // 메모리 해제
-    delete_tree(root);
+    // 후위 순회 출력
+    post_order(pre_order, 0, pre_order.size());
 
     return 0;
+}
+
+
+void post_order(vector<int>& pre_order, int start, int end) {
+    if (start >= end) return;
+
+    int root = pre_order[start];
+
+    int split = start + 1;
+    while (split < end && pre_order[split] < root) {
+        split++;
+    }
+
+    post_order(pre_order, start + 1, split);
+    post_order(pre_order, split, end);
+    cout << root << endl;
 }
